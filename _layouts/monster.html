@@ -1,0 +1,155 @@
+---
+layout: default
+---
+<div class="monster-entry container mx-auto px-4 py-8 max-w-4xl">
+  <h1 class="text-4xl font-bold mb-2">{{ page.name }}</h1>
+  <p class="text-xl italic mb-6">{{ page.type }}, {{ page.alignment }}</p>
+  
+  <hr class="my-6">
+  
+  <!-- Physical Description -->
+  <section class="mb-8">
+    <h2 class="text-2xl font-bold mb-4">Physical Description</h2>
+    <p>{{ page.physical_description }}</p>
+  </section>
+  
+  <!-- Combat Statistics -->
+  <section class="mb-8">
+    <h2 class="text-2xl font-bold mb-4">Combat Statistics</h2>
+    <div class="grid grid-cols-1 md:grid-cols-3 gap-4">
+      <div>
+        <strong>Armor Class:</strong> {{ page.combat_stats.armor_class.value }} 
+        ({{ page.combat_stats.armor_class.type }})
+      </div>
+      <div>
+        <strong>Hit Points:</strong> {{ page.combat_stats.hit_points.value }} 
+        ({{ page.combat_stats.hit_points.formula }})
+      </div>
+      <div>
+        <strong>Speed:</strong> 
+        {% if page.combat_stats.speed.walk %}{{ page.combat_stats.speed.walk }} ft.{% endif %}
+        {% if page.combat_stats.speed.climb %}, climb {{ page.combat_stats.speed.climb }} ft.{% endif %}
+      </div>
+    </div>
+  </section>
+  
+  <!-- Attributes -->
+  <section class="mb-8">
+    <h2 class="text-2xl font-bold mb-4">Attributes</h2>
+    <div class="grid grid-cols-3 md:grid-cols-6 gap-4 text-center">
+      {% for attr in page.attributes %}
+      <div class="border p-2 rounded">
+        <div class="font-bold">{{ attr[0] | upcase }}</div>
+        <div class="text-xl">{{ attr[1].score }} ({{ attr[1].modifier | prepend: '+' }})</div>
+      </div>
+      {% endfor %}
+    </div>
+  </section>
+  
+  <!-- Skills and Senses -->
+  <section class="mb-8">
+    <h2 class="text-2xl font-bold mb-4">Skills</h2>
+    <ul class="list-none">
+      {% for skill in page.skills %}
+      <li><strong>{{ skill.name }}:</strong> +{{ skill.bonus }}</li>
+      {% endfor %}
+    </ul>
+    
+    <h3 class="text-xl font-bold mt-4 mb-2">Senses</h3>
+    <ul class="list-none">
+      {% if page.senses.darkvision %}
+      <li><strong>Darkvision:</strong> {{ page.senses.darkvision }} ft.</li>
+      {% endif %}
+      <li><strong>Passive Perception:</strong> {{ page.senses.passive_perception }}</li>
+    </ul>
+    
+    <h3 class="text-xl font-bold mt-4 mb-2">Languages</h3>
+    {% if page.languages.size > 0 %}
+      {{ page.languages | join: ", " }}
+    {% else %}
+      None
+    {% endif %}
+    
+    <h3 class="text-xl font-bold mt-4 mb-2">Challenge Rating</h3>
+    <p>{{ page.challenge_rating.rating }} ({{ page.challenge_rating.xp }} XP)</p>
+  </section>
+  
+  <!-- Special Abilities -->
+  <section class="mb-8">
+    <h2 class="text-2xl font-bold mb-4">Special Abilities</h2>
+    {% for ability in page.special_abilities %}
+    <div class="mb-4">
+      <h3 class="text-xl font-bold">{{ ability.name }}</h3>
+      <p>{{ ability.description }}</p>
+    </div>
+    {% endfor %}
+  </section>
+  
+  <!-- Actions -->
+  <section class="mb-8">
+    <h2 class="text-2xl font-bold mb-4">Actions</h2>
+    {% for action in page.actions %}
+    <div class="mb-4">
+      <h3 class="text-xl font-bold">{{ action.name }}</h3>
+      {% if action.type %}
+      <p><em>{{ action.type }}:</em> +{{ action.to_hit }} to hit, reach {{ action.reach }} ft., one target.</p>
+      {% if action.damage %}
+      <p><em>Hit:</em> {{ action.damage.dice }} + {{ action.damage.modifier }} {{ action.damage.type }} damage.</p>
+      {% endif %}
+      {% if action.additional_effects %}
+      <p>{{ action.additional_effects }}</p>
+      {% endif %}
+      {% else %}
+      <p>{{ action.description }}</p>
+      {% if action.usage %}
+      <p><em>{{ action.usage }}</em></p>
+      {% endif %}
+      {% endif %}
+    </div>
+    {% endfor %}
+  </section>
+  
+  <!-- Ecology -->
+  <section class="mb-8">
+    <h2 class="text-2xl font-bold mb-4">Behavior & Ecology</h2>
+    <div class="mb-4">{{ page.behavior_and_ecology | markdownify }}</div>
+    
+    <h3 class="text-xl font-bold mt-4 mb-2">Habitat & Distribution</h3>
+    <ul class="list-disc pl-6 mb-4">
+      {% for location in page.habitat_and_distribution.preferred_locations %}
+      <li>{{ location }}</li>
+      {% endfor %}
+    </ul>
+    <p>{{ page.habitat_and_distribution.description }}</p>
+  </section>
+  
+  <!-- DM Notes -->
+  <section class="mb-8">
+    <h2 class="text-2xl font-bold mb-4">DM Notes</h2>
+    <h3 class="text-xl font-bold mb-2">Suggested Uses</h3>
+    <ul class="list-disc pl-6 mb-4">
+      {% for use in page.dm_notes.suggested_uses %}
+      <li>{{ use }}</li>
+      {% endfor %}
+    </ul>
+    <p>{{ page.dm_notes.tactical_notes }}</p>
+  </section>
+</div>
+
+<style>
+  .monster-entry {
+    font-family: system-ui, -apple-system, sans-serif;
+    line-height: 1.5;
+  }
+  
+  .monster-entry h1, .monster-entry h2, .monster-entry h3 {
+    font-family: 'Crimson Text', Georgia, serif;
+  }
+  
+  .monster-entry hr {
+    border: 0;
+    height: 2px;
+    background: #2d3748;
+    margin: 2rem 0;
+  }
+</style>
