@@ -1,0 +1,39 @@
+<!-- _includes/header.html -->
+<header class="bg-gray-800 text-white">
+  <div class="container mx-auto px-4">
+    <nav class="flex items-center justify-between py-4">
+      <!-- Site Title -->
+      <a href="/" class="text-xl font-bold">Campaign Compendium</a>
+      
+      <!-- Navigation Links -->
+      <div class="hidden md:flex space-x-6">
+        <a href="/" class="hover:text-gray-300 transition-colors">Home</a>
+        <a href="/monsters" class="hover:text-gray-300 transition-colors">Monsters</a>
+        <a href="/items" class="hover:text-gray-300 transition-colors">Items</a>
+        <a href="/calculator" class="hover:text-gray-300 transition-colors">Damage Calculator</a>
+      </div>
+      
+      <!-- Mobile Menu Button -->
+      <button class="md:hidden" onclick="toggleMobileMenu()">
+        <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16"></path>
+        </svg>
+      </button>
+    </nav>
+    
+    <!-- Mobile Menu -->
+    <div id="mobileMenu" class="hidden md:hidden pb-4">
+      <a href="/" class="block py-2 hover:text-gray-300 transition-colors">Home</a>
+      <a href="/monsters" class="block py-2 hover:text-gray-300 transition-colors">Monsters</a>
+      <a href="/items" class="block py-2 hover:text-gray-300 transition-colors">Items</a>
+      <a href="/calculator" class="block py-2 hover:text-gray-300 transition-colors">Damage Calculator</a>
+    </div>
+  </div>
+</header>
+
+<script>
+function toggleMobileMenu() {
+  const menu = document.getElementById('mobileMenu');
+  menu.classList.toggle('hidden');
+}
+</script>

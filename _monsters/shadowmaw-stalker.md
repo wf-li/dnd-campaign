@@ -1,11 +1,9 @@
 ---
 layout: monster
----
 
 # Monster template for Jekyll
 name: "Shadowmaw Stalker"
 type: "Large monstrosity"
-alignment: "neutral evil"
 
 # Basic Description
 physical_description: |
@@ -131,3 +129,4 @@ dm_notes:
     - "Part of a local noble's exotic creature collection"
     - "The source of mysterious disappearances in a village"
   tactical_notes: "The creature's intelligence and stealth capabilities make it an excellent choice for creating tension and encouraging players to think tactically. Its sensitivity to bright light gives players a clear advantage to exploit if they can figure it out."
+--- 

@@ -3,7 +3,7 @@ layout: default
 ---
 <div class="monster-entry container mx-auto px-4 py-8 max-w-4xl">
   <h1 class="text-4xl font-bold mb-2">{{ page.name }}</h1>
-  <p class="text-xl italic mb-6">{{ page.type }}, {{ page.alignment }}</p>
+  <p class="text-xl italic mb-6">{{ page.type }}</p>
   
   <hr class="my-6">
   
@@ -28,7 +28,6 @@ layout: default
       <div>
         <strong>Speed:</strong> 
         {% if page.combat_stats.speed.walk %}{{ page.combat_stats.speed.walk }} ft.{% endif %}
-        {% if page.combat_stats.speed.climb %}, climb {{ page.combat_stats.speed.climb }} ft.{% endif %}
       </div>
     </div>
   </section>
